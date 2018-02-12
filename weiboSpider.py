@@ -12,7 +12,7 @@ from lxml import etree
 
 
 class Weibo:
-    cookie = {"Cookie": "your cookie"}  # 将your cookie替换成自己的cookie
+    cookie = {"Cookie": "_T_WM=4314e33c475f158f97021836b2d2d4f8; ALF=1520991675; SCF=AsxaUj1_Y4wRNQFbw8fVzmAxR2YbXXZO0Q_yaPMq0_GB1TpVF0ZxIyCz9hVd13oAnwrxzM58-j0e7IAlYM8PSow.; SUB=_2A253hIhKDeRhGeNP4lsY8ibLwjmIHXVUhigCrDV6PUJbktANLU3dkW1NTllPfHLBp8dmbeESc3CRIbgclEVHCBGr; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9Whh3Q4pnjb8h4lXR0TVnNio5JpX5K-hUgL.Fo-p1K.4eonN1K-2dJLoIEvIwCH81C-4BE-ReFH81FHWSb-ReCH8SCHFxC-R1FH8SC-RBCHWBCH8SC-RBC-4Bntt; SUHB=0BLYSkLxWWpjl5; SSOLoginState=1518401562"}  # 将your cookie替换成自己的cookie
 
     # Weibo类初始化
     def __init__(self, user_id, filter=0):
@@ -139,6 +139,9 @@ class Weibo:
 
                         # 点赞数
                         str_zan = info[i].xpath("div/a/text()")[-4]
+                        # 如果结果中不含‘赞’
+                        if str_zan.find(u'赞') == -1:
+                            str_zan = info[i].xpath("div/span/text()")[1]
                         guid = re.findall(pattern, str_zan, re.M)
                         up_num = int(guid[0])
                         self.up_num.append(up_num)
@@ -221,7 +224,7 @@ class Weibo:
 def main():
     try:
         # 使用实例,输入一个用户id，所有信息都会存储在wb实例中
-        user_id = 1669879400  # 可以改成任意合法的用户id（爬虫的微博id除外）
+        user_id = 1624923463  # 可以改成任意合法的用户id（爬虫的微博id除外）
         filter = 1  # 值为0表示爬取全部微博（原创微博+转发微博），值为1表示只爬取原创微博
         wb = Weibo(user_id, filter)  # 调用Weibo类，创建微博实例wb
         wb.start()  # 爬取微博信息
