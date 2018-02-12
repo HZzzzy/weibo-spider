@@ -1,3 +1,6 @@
+# 描述
+使用的别人的东西，原作者Chen Lei
+git 地址：https://github.com/dataabc/weiboSpider.git
 # 功能
 爬取新浪微博信息：爬取微博信息，并写入文件，文件结果如图所示：
 ![](https://picture.cognize.me/cognize/github/weibospider/weibotxt.png)
